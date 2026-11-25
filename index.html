@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio</title>
+  <meta name="description" content="" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#08141B" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2308141B'/><path d='M10 5c0 8 12 14 12 22M22 5c0 8-12 14-12 22' stroke='%2333E0C4' stroke-width='2.4' fill='none' stroke-linecap='round'/><path d='M12 11h8M12 21h8' stroke='%23A98BFF' stroke-width='2' stroke-linecap='round'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    try {
+      var t = localStorage.getItem("theme");
+      if (t) document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"><span></span></div>
+  <canvas id="field" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <a class="mark" href="#top" aria-label="Back to top"><span class="mark-dot"></span><span id="mark-name"></span></a>
+    <div class="topbar-actions">
+      <button class="cmd-open" type="button" aria-haspopup="dialog">
+        <span>Jump to</span><kbd id="kbd-hint">Ctrl K</kbd>
+      </button>
+      <button class="theme" type="button" aria-label="Switch between dark and light theme">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9A7 7 0 0 1 12 3Z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="rail" aria-label="Sections">
+      <ol id="rail-list"></ol>
+    </nav>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-text">
+          <p class="status" id="status" hidden><span class="pulse"></span><span></span></p>
+          <h1 class="name" id="name" aria-label=""></h1>
+          <p class="headline" id="headline"></p>
+          <p class="intro" id="intro"></p>
+          <div class="hero-cta" id="hero-cta"></div>
+        </div>
+        <figure class="helix-wrap">
+          <canvas id="helix" role="img" aria-label="Interactive 3D DNA double helix. Drag to rotate."></canvas>
+          <figcaption class="hud" aria-live="polite">
+            <span class="hud-k">Base pair</span><span class="hud-v" id="hud-bp">—</span>
+            <span class="hud-k">Pairing</span><span class="hud-v" id="hud-pair">—</span>
+            <span class="hud-k">Rise</span><span class="hud-v" id="hud-rise">—</span>
+          </figcaption>
+          <p class="hint">Drag to rotate · hover a base pair</p>
+        </figure>
+        <dl class="highlights" id="highlights"></dl>
+      </section>
+
+      <section class="block" id="about" data-title="About">
+        <h2>About</h2>
+        <div class="about-grid">
+          <div class="prose" id="about-text"></div>
+          <aside class="about-side">
+            <figure class="portrait" id="portrait" hidden></figure>
+            <div id="lang-wrap">
+              <h3>Languages</h3>
+              <ul class="plain" id="lang-list"></ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="block" id="research" data-title="Research">
+        <div class="h2-row">
+          <h2>Research focus</h2>
+          <p class="pub-meta">Illustrations with simulated data. Drag and hover to explore.</p>
+        </div>
+        <div class="research" id="research-list"></div>
+      </section>
+
+      <section class="block" id="experience" data-title="Experience">
+        <h2>Experience</h2>
+        <ol class="timeline" id="timeline"></ol>
+      </section>
+
+      <section class="block" id="publications" data-title="Publications">
+        <div class="h2-row">
+          <h2>Publications</h2>
+          <p class="pub-meta" id="pub-meta"></p>
+        </div>
+        <ol class="pubs" id="pub-list"></ol>
+        <p class="pub-sync" id="pub-sync" aria-live="polite"></p>
+      </section>
+
+      <section class="block" id="projects" data-title="Projects">
+        <h2>Projects</h2>
+        <ul class="projects" id="project-list"></ul>
+      </section>
+
+      <section class="block" id="skills" data-title="Skills">
+        <h2>Skills</h2>
+        <div class="skill-filter" id="skill-filter" role="group" aria-label="Filter skills"></div>
+        <div class="skills" id="skill-groups"></div>
+      </section>
+
+      <section class="block" id="education" data-title="Education">
+        <h2>Education</h2>
+        <ol class="edu" id="edu-list"></ol>
+      </section>
+
+      <section class="block" id="credentials" data-title="Credentials">
+        <h2>Certifications</h2>
+        <ul class="certs" id="cert-list"></ul>
+      </section>
+
+      <section class="block contact" id="contact" data-title="Contact">
+        <h2>Contact</h2>
+        <p class="contact-lead">The quickest way to reach me is email. Click the address to copy it.</p>
+        <button class="email" id="email" type="button"></button>
+        <p class="copied" id="copied" role="status" aria-live="polite"></p>
+        <ul class="contact-links" id="contact-links"></ul>
+      </section>
+    </main>
+  </div>
+
+  <footer class="foot">
+    <p id="foot-text"></p>
+  </footer>
+
+  <dialog class="cmd" id="cmd" aria-label="Jump to a section">
+    <form method="dialog" class="cmd-inner">
+      <input id="cmd-input" type="text" placeholder="Search sections, papers, projects or skills" autocomplete="off" aria-label="Search" />
+      <ul id="cmd-results" role="listbox"></ul>
+      <p class="cmd-help">Enter to open · Esc to close</p>
+    </form>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="visuals.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
